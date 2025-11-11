@@ -476,27 +476,45 @@
         const musicControl = document.getElementById('musicControl');
         const music = document.getElementById('backgroundMusic');
         let isPlaying = false;
+        let musicStarted = false;
 
-        musicControl.addEventListener('click', function() {
+        // Función para iniciar la música
+        function startMusic() {
+            if (!musicStarted) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicStarted = true;
+                    musicControl.classList.remove('paused');
+                }).catch((error) => {
+                    console.log('No se pudo reproducir la música:', error);
+                });
+                // Remover el evento después del primer clic
+                document.removeEventListener('click', startMusic);
+            }
+        }
+
+        // Iniciar música con el primer clic en cualquier parte de la página
+        document.addEventListener('click', startMusic);
+
+        // Control del botón flotante
+        musicControl.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar que dispare el evento del documento
             if (isPlaying) {
                 music.pause();
                 musicControl.classList.add('paused');
+                isPlaying = false;
             } else {
-                music.play();
-                musicControl.classList.remove('paused');
+                music.play().then(() => {
+                    musicControl.classList.remove('paused');
+                    isPlaying = true;
+                    musicStarted = true;
+                });
             }
-            isPlaying = !isPlaying;
         });
 
-        // Intentar reproducir automáticamente (algunos navegadores lo bloquean)
+        // Marcar el botón como pausado al cargar
         window.addEventListener('load', function() {
-            music.play().then(() => {
-                isPlaying = true;
-                musicControl.classList.remove('paused');
-            }).catch(() => {
-                // Si falla, esperar interacción del usuario
-                musicControl.classList.add('paused');
-            });
+            musicControl.classList.add('paused');
         });
 
         // Animaciones al hacer scroll
