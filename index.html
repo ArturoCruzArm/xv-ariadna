@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Ariadna Carolina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #ffc3d5 0%, #ffe5ec 50%, #fff0f5 100%);
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(255, 20, 147, 0.7);
+            }
+        }
+
+        .music-control::before {
+            content: '♫';
+            font-size: 28px;
+            color: white;
+        }
+
+        .music-control.paused {
+            animation: none;
+        }
+
+        .music-control.paused::before {
+            content: '▶';
+        }
+
+        .header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ffc3d5;stop-opacity:1" /><stop offset="100%" style="stop-color:%23ffe5ec;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23grad1)" width="1200" height="800"/></svg>') center/cover;
+        }
+
+        .header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            color: #ff1493;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInDown 1s ease;
+        }
+
+        .header .subtitle {
+            font-size: 1.8rem;
+            color: #d946a8;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .header .date {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #ff1493;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            color: #ff69b4;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+            color: #666;
+        }
+
+        .event-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, #fff0f5, #ffe5ec);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #ffb6d9;
+        }
+
+        .event-card h4 {
+            font-size: 1.8rem;
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+
+        .event-card .time {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #d946a8;
+            margin-bottom: 10px;
+        }
+
+        .event-card .location {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .map-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .map-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .family-section {
+            text-align: center;
+        }
+
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .family-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .family-card h4 {
+            font-size: 1.3rem;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .family-card p {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            font-weight: 600;
+        }
+
+        .message-section {
+            background: linear-gradient(135deg, #ffe5ec, #fff0f5);
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .message-section p {
+            font-size: 1.5rem;
+            line-height: 2;
+            color: #666;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+        }
+
+        .footer p {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 3.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .header .date {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 2.5rem;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .music-control {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Control de música flotante -->
+    <div class="music-control" id="musicControl"></div>
+
+    <!-- Audio (colocar el archivo Mikrokosmos.mp3 en la misma carpeta) -->
+    <audio id="backgroundMusic" loop>
+        <source src="Mikrokosmos.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Ariadna Carolina</h1>
+        <p class="subtitle">Mis Quince Años</p>
+        <p class="date">21 de Diciembre 2025</p>
+    </div>
+
+    <!-- Mensaje personal -->
+    <div class="section">
+        <h2>Una nueva etapa comienza</h2>
+        <div class="card">
+            <p style="font-size: 1.5rem; color: #ff69b4; font-style: italic;">
+                "Mis 15 años significan que ahora seré un poquito más grande y que gracias a mis padres estoy ahora en este lugar.
+                Son 15 años que han sido muy bonitos para mí, que agradezco a Dios por mi familia que me regaló."
+            </p>
+        </div>
+    </div>
+
+    <!-- Detalles del evento -->
+    <div class="section">
+        <h2>Detalles del Evento</h2>
+        <div class="event-details">
+            <div class="event-card">
+                <h4>Misa de Acción de Gracias</h4>
+                <p class="time">1:00 PM</p>
+                <p class="location">Parroquia de Nuestra Señora de la Anunciación<br>Colonia Santa María del Granjero<br>León, Guanajuato</p>
+                <a href="https://maps.google.com/?q=Parroquia+Nuestra+Señora+Anunciación+León+Guanajuato" class="map-btn" target="_blank">Ver Mapa</a>
+            </div>
+
+            <div class="event-card">
+                <h4>Recepción</h4>
+                <p class="time">Después de la Misa</p>
+                <p class="location">Salón Cerro de la Bufa<br>Colonia Lomas de Jerez<br>León, Guanajuato</p>
+                <a href="https://maps.google.com/?q=Cerro+de+la+Bufa+Lomas+de+Jerez+León" class="map-btn" target="_blank">Ver Mapa</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Familia -->
+    <div class="section family-section">
+        <h2>Mi Familia</h2>
+
+        <div class="family-grid">
+            <div class="family-card">
+                <h4>Mis Padres</h4>
+                <p>Rosa Elena Medina Bermúdez</p>
+                <p>Javier Israel Vallejo Oliva</p>
+            </div>
+
+            <div class="family-card">
+                <h4>Mis Padrinos</h4>
+                <p>Janette Jaqueline Vallejo Oliva</p>
+                <p>Raúl Daniel Alvarado Balderas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje a invitados -->
+    <div class="section">
+        <div class="message-section">
+            <p>
+                "Gracias por estar conmigo y compartir mi felicidad de cumplir 15 años.
+                Que nunca olviden mi vestido hermoso y nada de lo que haya en mi fiesta."
+            </p>
+            <p style="margin-top: 30px; font-size: 1.3rem;">
+                - Cari ♡
+            </p>
+        </div>
+    </div>
+
+    <!-- Confirmación -->
+    <div class="section" style="text-align: center;">
+        <h2>Confirmación de Asistencia</h2>
+        <p style="font-size: 1.4rem; margin-bottom: 20px;">Por favor confirma tu asistencia</p>
+        <a href="https://wa.me/524772699029?text=Hola%20Elena,%20confirmo%20mi%20asistencia%20a%20los%20XV%20años%20de%20Ariadna%20Carolina" class="whatsapp-btn" target="_blank">
+            Confirmar por WhatsApp
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Con amor, Ariadna Carolina</p>
+        <p style="margin-top: 10px; font-size: 1rem;">21 • Diciembre • 2025</p>
+    </div>
+
+    <script>
+        // Control de música
+        const musicControl = document.getElementById('musicControl');
+        const music = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+
+        musicControl.addEventListener('click', function() {
+            if (isPlaying) {
+                music.pause();
+                musicControl.classList.add('paused');
+            } else {
+                music.play();
+                musicControl.classList.remove('paused');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Intentar reproducir automáticamente (algunos navegadores lo bloquean)
+        window.addEventListener('load', function() {
+            music.play().then(() => {
+                isPlaying = true;
+                musicControl.classList.remove('paused');
+            }).catch(() => {
+                // Si falla, esperar interacción del usuario
+                musicControl.classList.add('paused');
+            });
+        });
+
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.section, .card, .event-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
