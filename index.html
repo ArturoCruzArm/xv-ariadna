@@ -135,6 +135,41 @@
             to { opacity: 1; }
         }
 
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease 0.9s backwards;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 2px solid #ffb6d9;
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff1493;
+            font-family: 'Great Vibes', cursive;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: #999;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .section h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
@@ -322,6 +357,23 @@
                 bottom: 20px;
                 right: 20px;
             }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 15px 10px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -339,6 +391,26 @@
         <h1>Ariadna Carolina</h1>
         <p class="subtitle">Mis Quince Años</p>
         <p class="date">21 de Diciembre 2025</p>
+
+        <!-- Cuenta Regresiva -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">0</span>
+                <span class="countdown-label">Días</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">0</span>
+                <span class="countdown-label">Horas</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">0</span>
+                <span class="countdown-label">Minutos</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">0</span>
+                <span class="countdown-label">Segundos</span>
+            </div>
+        </div>
     </div>
 
     <!-- Mensaje personal -->
@@ -472,6 +544,33 @@
     </div>
 
     <script>
+        // Cuenta Regresiva
+        const eventDate = new Date('December 21, 2025 13:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 2rem; color: #ff1493;">¡El gran día ha llegado!</p>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // Actualizar cada segundo
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
         // Control de música
         const musicControl = document.getElementById('musicControl');
         const music = document.getElementById('backgroundMusic');
