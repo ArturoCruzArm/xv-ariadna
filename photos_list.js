@@ -1,4 +1,4 @@
-// Lista de fotos generada automáticamente
+// Lista de fotos generada automáticamente - 205 fotos
 const photos = [
     { name: 'DJI_20251117163129_0102_D', filename: 'DJI_20251117163129_0102_D.webp', path: 'fotos-webp/DJI_20251117163129_0102_D.webp' },
     { name: 'DJI_20251117163147_0105_D', filename: 'DJI_20251117163147_0105_D.webp', path: 'fotos-webp/DJI_20251117163147_0105_D.webp' },
