@@ -1257,5 +1257,26 @@
     <!-- Lista de fotos -->
     <script src="photos_list.js"></script>
     <script src="default_selections.js"></script>
+
+    <!-- Inicialización -->
+    <script>
+        // Inicializar cuando todo esté cargado
+        window.addEventListener('load', function() {
+            // Cargar selecciones predeterminadas
+            if (typeof defaultSelections !== 'undefined') {
+                selections = { ...selections, ...defaultSelections };
+            }
+
+            console.log('Selecciones predeterminadas cargadas:', Object.keys(defaultSelections || {}).length, 'fotos');
+            console.log('Total de fotos disponibles:', photos.length);
+
+            // Renderizar galería y actualizar estadísticas
+            updateStats();
+            renderGallery();
+
+            // Ocultar loading
+            document.getElementById('loading').classList.remove('active');
+        });
+    </script>
 </body>
 </html>
