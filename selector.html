@@ -704,13 +704,13 @@
             font-size: 1.2rem;
         }
 
-        /* Video Container - Vertical 9:16 */
+        /* Video Container - Horizontal 16:9 */
         .video-container-selector {
             position: relative;
             width: 100%;
-            max-width: 540px; /* Ancho máximo para video vertical 9:16 */
+            max-width: 900px; /* Ancho máximo para video horizontal 16:9 */
             margin: 0 auto;
-            padding-bottom: 177.78%; /* 9:16 aspect ratio para video vertical 1080x1920 */
+            padding-bottom: 56.25%; /* 16:9 aspect ratio para video horizontal */
             height: 0;
             overflow: hidden;
             border-radius: 20px;
@@ -742,7 +742,7 @@
             }
 
             .video-container-selector {
-                max-width: 400px;
+                max-width: 100%;
                 border-radius: 15px;
             }
 
