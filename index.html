@@ -1284,6 +1284,25 @@
             { src: 'fotos-webp/IMG_8222.webp', alt: 'Ariadna - Foto 432' },
             { src: 'fotos-webp/IMG_8224.webp', alt: 'Ariadna - Foto 433' },
             { src: 'fotos-webp/IMG_8227.webp', alt: 'Ariadna - Foto 434' }
+        ];
+
+        // Generar dinámicamente el HTML de la galería
+        function loadGallery() {
+            var galleryContainer = document.getElementById('gallery-container');
+            var html = '';
+
+            for (var i = 0; i < galleryImages.length; i++) {
+                html += '<div class="gallery-item" onclick="openGalleryModal(' + i + ')">';
+                html += '<img src="' + galleryImages[i].src + '" alt="' + galleryImages[i].alt + '" loading="lazy">';
+                html += '</div>';
+            }
+
+            galleryContainer.innerHTML = html;
+        }
+
+        // Cargar galería al cargar la página
+        window.addEventListener('load', loadGallery);
+
         function openGalleryModal(index) {
             currentGalleryIndex = index;
             var modal = document.getElementById('gallery-modal');
